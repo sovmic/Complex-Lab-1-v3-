@@ -9,6 +9,7 @@ void read(VideoCards Card) {
     ifstream outFile("File.bin", ios::binary | ios::in);
     if (outFile) {
 
+        int card_count = 0;
         if (outFile.peek() == ifstream::traits_type::eof()) {
             cout << "Записей нет.\n";
         }
@@ -20,6 +21,10 @@ void read(VideoCards Card) {
                 if (!outFile.read(reinterpret_cast<char*>(&nameLength), sizeof(nameLength))) {
                     break;
                 }
+                cout << "+-----+-----------------+------------------+-------------------+--------------------+---------------------+" << endl;
+                cout << "|  N  |      Model      |   Cooling type   |   Capacity VRAM   |  Memory Frequency  |   DirectX Version   |" << endl;
+                cout << "+-----+-----------------+------------------+-------------------+--------------------+---------------------+" << endl;
+
                 char* nameBuffer = new char[nameLength + 1];
                 outFile.read(nameBuffer, nameLength);
                 nameBuffer[nameLength] = '\0';
@@ -38,7 +43,11 @@ void read(VideoCards Card) {
                 outFile.read(reinterpret_cast<char*>(&SomeCard.VideoMemoryFrequency), sizeof(SomeCard.VideoMemoryFrequency));
                 outFile.read(reinterpret_cast<char*>(&SomeCard.DirectXVersion), sizeof(SomeCard.DirectXVersion));
 
-                cout << endl << "Model: " << SomeCard.CardName << endl << "Card Cooling Type: " << SomeCard.CardCoolingType << endl << "Capacity VRAM: " << SomeCard.CapacityVRAM << " GB" << endl << "Video Memory Frequency: " << SomeCard.VideoMemoryFrequency << " MHz" << endl << "DirectX Version: " << SomeCard.DirectXVersion << endl;
+                card_count++;
+                cout << "|  " << setw(3) << left << card_count << "| " << setw(16) << SomeCard.CardName <<
+                    "| " << setw(17) << SomeCard.CardCoolingType << "| " << setw(18) << SomeCard.CapacityVRAM << "| " << setw(19) <<
+                    SomeCard.VideoMemoryFrequency << "| " << setw(20) << SomeCard.DirectXVersion << "|" << endl;
+                cout << Interface << endl;
             }
         }
         outFile.close();

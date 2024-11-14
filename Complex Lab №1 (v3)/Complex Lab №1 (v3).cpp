@@ -9,7 +9,7 @@ int main() {
 
     int UserInput = -1;
     int Status = 1;
-    string Interface(75, '-');
+    
     cout << Interface << endl << "Приветствуем! Перед вами каталог видеокарт. Вы можете:\n1) Добавить запись;\n2) Просмотреть все записи;\n3) Поиск записи по атрибуту;\n4) Выход;\n";
 
     while (Status == 1) {

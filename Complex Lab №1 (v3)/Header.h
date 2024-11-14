@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -14,3 +15,5 @@ struct VideoCards {
     int VideoMemoryFrequency;
     int DirectXVersion;
 };
+
+string Interface(107, '-');

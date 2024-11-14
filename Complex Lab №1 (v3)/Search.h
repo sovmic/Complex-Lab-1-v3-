@@ -44,6 +44,7 @@ void search() {
             outFile.close();
             switch (Op) {
             case 1: {
+                int card_count = 0;
                 string attribute, value;
                 cout << "Введите атрибут для поиска (model или cooling): ";
                 cin >> attribute;
@@ -51,23 +52,37 @@ void search() {
                 cin.ignore();
                 getline(cin, value);
                 bool found = false;
+                cout << "+-----+-----------------+------------------+-------------------+--------------------+---------------------+" << endl;
+                cout << "|  N  |      Model      |   Cooling type   |   Capacity VRAM   |  Memory Frequency  |   DirectX Version   |" << endl;
+                cout << "+-----+-----------------+------------------+-------------------+--------------------+---------------------+" << endl;
+
                 for (const auto& card : AllCards) {
-                    if ((attribute == "model" || attribute == "Model") && (card.CardName.find(value) != string::npos)) {
+                    if ((attribute == "model" || attribute == "Model" || attribute == "m") && (card.CardName.find(value) != string::npos)) {
                         found = true;
-                        cout << endl << "Найдена запись:" << endl << "Model: " << card.CardName << endl << "Card Cooling Type: " << card.CardCoolingType << endl << "Capacity VRAM: " << card.CapacityVRAM << endl << "Video Memory Frequency: " << card.VideoMemoryFrequency << endl << "DirectX Version: " << card.DirectXVersion << endl;
+                        card_count++;
+                        cout << "|  " << setw(3) << left << card_count << "| " << setw(16) << card.CardName <<
+                            "| " << setw(17) << card.CardCoolingType << "| " << setw(18) << card.CapacityVRAM << "| " << setw(19) <<
+                            card.VideoMemoryFrequency << "| " << setw(20) << card.DirectXVersion << "|" << endl;
+                        cout << Interface << endl;
                     }
-                    else if (attribute == "cooling" || attribute == "Cooling" && card.CardCoolingType.find(value) != string::npos) {
+                    else if ((attribute == "cooling" || attribute == "Cooling" || attribute == "c") && card.CardCoolingType.find(value) != string::npos) {
                         found = true;
-                        cout << endl << "Найдена запись:" << endl << "Model: " << card.CardName << endl << "Card Cooling Type: " << card.CardCoolingType << endl << "Capacity VRAM: " << card.CapacityVRAM << endl << "Video Memory Frequency: " << card.VideoMemoryFrequency << endl << "DirectX Version: " << card.DirectXVersion << endl;
+                        card_count++;
+                        cout << "|  " << setw(3) << left << card_count << "| " << setw(16) << card.CardName <<
+                            "| " << setw(17) << card.CardCoolingType << "| " << setw(18) << card.CapacityVRAM << "| " << setw(19) <<
+                            card.VideoMemoryFrequency << "| " << setw(20) << card.DirectXVersion << "|" << endl;
+                        cout << Interface << endl;
                     }
                 }
                 if (!found) {
-                    cout << "Записей не найдено." << endl;
+                    cout << "| " << setw(73) << "Записи не найдены в заданном диапазоне." << setw(33) << "| " << endl;
+                    card_count = 0;
                 }
                 break;
             }
             case 2: {
                 string attribute;
+                int card_count = 0;
                 int min, max;
                 cout << "Введите атрибут для поиска (vram или frequency): ";
                 cin >> attribute;
@@ -77,17 +92,26 @@ void search() {
                 cin >> max;
                 bool found = false;
                 for (const auto& card : AllCards) {
-                    if ((attribute == "vram" || attribute == "Vram") && card.CapacityVRAM >= min && card.CapacityVRAM <= max) {
+                    if ((attribute == "vram" || attribute == "Vram" || attribute == "v") && card.CapacityVRAM >= min && card.CapacityVRAM <= max) {
                         found = true;
-                        cout << endl << "Найдена карта: " << card.CardName << " с VRAM: " << card.CapacityVRAM << " GB" << endl;
+                        card_count++;
+                        cout << "|  " << setw(3) << left << card_count << "| " << setw(16) << card.CardName <<
+                            "| " << setw(17) << card.CardCoolingType << "| " << setw(18) << card.CapacityVRAM << "| " << setw(19) <<
+                            card.VideoMemoryFrequency << "| " << setw(20) << card.DirectXVersion << "|" << endl;
+                        cout << Interface << endl;
                     }
-                    else if ((attribute == "frequency" || attribute == "Frequency") && card.VideoMemoryFrequency >= min && card.VideoMemoryFrequency <= max) {
+                    else if ((attribute == "frequency" || attribute == "Frequency" || attribute == "f") && card.VideoMemoryFrequency >= min && card.VideoMemoryFrequency <= max) {
                         found = true;
-                        cout << endl << "Найдена карта: " << card.CardName << " с частотой видеопамяти: " << card.VideoMemoryFrequency << " MHz" << endl;
+                        card_count++;
+                        cout << "|  " << setw(3) << left << card_count << "| " << setw(16) << card.CardName <<
+                            "| " << setw(17) << card.CardCoolingType << "| " << setw(18) << card.CapacityVRAM << "| " << setw(19) <<
+                            card.VideoMemoryFrequency << "| " << setw(20) << card.DirectXVersion << "|" << endl;
+                        cout << Interface << endl;
                     }
                 }
                 if (!found) {
-                    cout << "Записи не найдены в заданном диапазоне." << endl;
+                    cout << "| " << setw(73) << "Записи не найдены в заданном диапазоне." << setw(33) << "| " << endl;
+                    card_count = 0;
                 }
                 break;
             }
